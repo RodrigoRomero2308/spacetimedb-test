@@ -4,8 +4,13 @@ on:
   push:
     branches:
       - main
-      - develop
-      - cursor/spacetimedb-juego-multijugador-e715
+    paths:
+      - 'client/**'
+      - 'index.html'
+      - 'vite.config.ts'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'tsconfig.json'
   workflow_dispatch:
 
 permissions:

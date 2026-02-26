@@ -34,31 +34,34 @@ Juego multijugador en tiempo real construido con **SpacetimeDB 2.0**. Un jugador
    npm run dev
    ```
 
-## Despliegue en GitHub Pages
+## Workflows de despliegue (rama `main`)
 
-El frontend se despliega automáticamente en GitHub Pages al hacer push a `main` o `develop`.
+Hay 2 workflows que se ejecutan **solo en la rama `main`** y **solo cuando hay cambios** en sus respectivos proyectos:
 
-### Configuración inicial (una vez)
+| Workflow | Se ejecuta cuando cambia | Acción |
+|----------|---------------------------|--------|
+| **Deploy to GitHub Pages** | `client/`, `index.html`, `vite.config.ts`, `package.json` | Publica el frontend en GitHub Pages |
+| **Deploy to SpacetimeDB Maincloud** | `spacetimedb/` | Publica el módulo en Maincloud |
 
-1. En el repo: **Settings → Pages**
-2. En "Build and deployment", elegir **GitHub Actions** como fuente
+### GitHub Pages
 
-### URL
+1. **Settings → Pages** → elegir **GitHub Actions** como fuente
+2. URL: `https://rodrigoromero2308.github.io/spacetimedb-test`
+3. Despliegue manual: `npm run deploy`
 
-- Por defecto: `https://rodrigoromero2308.github.io/spacetimedb-test`
-- Dominio custom: configurable en Settings → Pages → Custom domain
+### Maincloud (SpacetimeDB)
 
-### Despliegue manual
+Para que el workflow publique automáticamente, configura el secret **SPACETIMEDB_CREDENTIALS**:
 
-```bash
-npm run deploy
-```
+1. Ejecuta `spacetime login` localmente (abre el navegador)
+2. Crea el secret (Linux/Mac):
+   ```bash
+   cd ~ && tar czf - .spacetimedb | base64
+   ```
+   Copia toda la salida (puede ser multilínea).
+3. En **Settings → Secrets and variables → Actions**, crea `SPACETIMEDB_CREDENTIALS` y pega el valor.
 
-### Variables de entorno (Maincloud)
-
-El workflow usa Maincloud por defecto. Para cambiar, añade secrets en **Settings → Secrets and variables → Actions**:
-- `VITE_SPACETIMEDB_URI`
-- `VITE_SPACETIMEDB_DB`
+Sin este secret, el workflow fallará al publicar. También puedes ejecutar **Actions → Deploy to SpacetimeDB Maincloud → Run workflow** para lanzarlo manualmente.
 
 ## Documentación
 
