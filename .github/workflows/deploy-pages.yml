@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - develop
+      - cursor/spacetimedb-juego-multijugador-e715
   workflow_dispatch:
 
 permissions:
