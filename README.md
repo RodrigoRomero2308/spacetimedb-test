@@ -4,15 +4,15 @@ Juego multijugador en tiempo real construido con **SpacetimeDB 2.0**. Un jugador
 
 ## Estructura del Proyecto
 
-- `spacetimedb/` - Módulo Rust (backend) con tablas y reducers
+- `spacetimedb/` - Módulo **TypeScript** (backend) con tablas y reducers
 - `client/` - Frontend React + TypeScript
-- `SPACETIMEDB_IMPLEMENTACION.md` - Documentación detallada de la implementación
+- `SPACETIMEDB_IMPLEMENTACION.md` - Detalle técnico de SpacetimeDB
+- `DESARROLLO.md` - Cómo se desarrolló y rol de SpacetimeDB
 
 ## Requisitos
 
-- Rust 1.93+
 - Node.js 18+
-- SpacetimeDB CLI (opcional, para publicar) o Docker
+- SpacetimeDB CLI (para publicar) o Docker
 
 ## Desarrollo
 
@@ -23,7 +23,9 @@ Juego multijugador en tiempo real construido con **SpacetimeDB 2.0**. Un jugador
 
 2. **Publicar el módulo** (con SpacetimeDB CLI):
    ```bash
-   cd spacetimedb && spacetime publish
+   cd spacetimedb
+   spacetime login
+   spacetime publish juego-multijugador
    ```
 
 3. **Instalar dependencias y ejecutar el cliente**:

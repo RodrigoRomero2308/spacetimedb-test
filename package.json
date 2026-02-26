@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "spacetimedb:build": "cd spacetimedb && cargo build --target wasm32-wasi 2>/dev/null || cargo build"
+    "spacetimedb:build": "cd spacetimedb && spacetime build"
   },
   "dependencies": {
     "react": "^18.3.1",

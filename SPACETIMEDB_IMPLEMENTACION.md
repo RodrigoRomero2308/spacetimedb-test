@@ -4,6 +4,9 @@
 
 Este documento describe cómo está implementado **SpacetimeDB 2.0** en la aplicación de juego multijugador "Adivina el Número", qué partes abstrae y cómo se integra en la arquitectura.
 
+**Backend:** Módulo en **TypeScript** (`spacetimedb/src/index.ts`).  
+Para el contexto del desarrollo y el rol de SpacetimeDB, ver [DESARROLLO.md](./DESARROLLO.md).
+
 ---
 
 ## 1. ¿Qué es SpacetimeDB?
@@ -103,9 +106,9 @@ SpacetimeDB es una base de datos en tiempo real que combina:
 
 ## 4. Implementación en Este Proyecto
 
-### 4.1 Módulo Rust (Backend)
+### 4.1 Módulo TypeScript (Backend)
 
-**Ubicación:** `spacetimedb/src/lib.rs`
+**Ubicación:** `spacetimedb/src/index.ts`
 
 **Tablas:**
 
@@ -127,11 +130,13 @@ SpacetimeDB es una base de datos en tiempo real que combina:
 | `leave_room`   | room_id                       | Abandona una sala              |
 
 **API de SpacetimeDB usada:**
-- `#[spacetimedb::table(accessor = nombre)]` para tablas
-- `#[spacetimedb::reducer]` para funciones invocables
-- `ReducerContext` con `ctx.db`, `ctx.sender()`, `ctx.timestamp`
-- `Table` trait: `iter()`, `insert()`, `delete()`
-- Accesores por clave única: `ctx.db.room().room_id().update(row)`, `ctx.db.room_player().id().delete(id)`
+- `schema()`, `table()`, `t` para definir tablas
+- `spacetimedb.reducer()` para funciones invocables
+- `spacetimedb.init()` para inicialización al publicar
+- `ReducerCtx` con `ctx.db`, `ctx.sender`, `ctx.timestamp`
+- `SenderError` para errores visibles al cliente
+- Tablas: `iter()`, `insert()`, `delete()`
+- Índices por PK: `ctx.db.room.room_id.find()`, `ctx.db.room.room_id.update()`, `ctx.db.room_player.delete(row)`
 
 ### 4.2 Cliente TypeScript (Frontend)
 
