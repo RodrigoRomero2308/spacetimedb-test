@@ -34,6 +34,35 @@ Juego multijugador en tiempo real construido con **SpacetimeDB 2.0**. Un jugador
    npm run dev
    ```
 
+## Workflows de despliegue (rama `main`)
+
+Hay 2 workflows que se ejecutan **solo en la rama `main`** y **solo cuando hay cambios** en sus respectivos proyectos:
+
+| Workflow | Se ejecuta cuando cambia | Acción |
+|----------|---------------------------|--------|
+| **Deploy to GitHub Pages** | `client/`, `index.html`, `vite.config.ts`, `package.json` | Publica el frontend en GitHub Pages |
+| **Deploy to SpacetimeDB Maincloud** | `spacetimedb/` | Publica el módulo en Maincloud |
+
+### GitHub Pages
+
+1. **Settings → Pages** → elegir **GitHub Actions** como fuente
+2. URL: `https://rodrigoromero2308.github.io/spacetimedb-test`
+3. Despliegue manual: `npm run deploy`
+
+### Maincloud (SpacetimeDB)
+
+Para que el workflow publique automáticamente, configura el secret **SPACETIMEDB_CREDENTIALS**:
+
+1. Ejecuta `spacetime login` localmente (abre el navegador)
+2. Crea el secret (Linux/Mac):
+   ```bash
+   cd ~ && tar czf - .spacetimedb | base64
+   ```
+   Copia toda la salida (puede ser multilínea).
+3. En **Settings → Secrets and variables → Actions**, crea `SPACETIMEDB_CREDENTIALS` y pega el valor.
+
+Sin este secret, el workflow fallará al publicar. También puedes ejecutar **Actions → Deploy to SpacetimeDB Maincloud → Run workflow** para lanzarlo manualmente.
+
 ## Documentación
 
 Ver `SPACETIMEDB_IMPLEMENTACION.md` para:

@@ -1,0 +1,35 @@
+name: Deploy to SpacetimeDB Maincloud
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'spacetimedb/**'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install SpacetimeDB CLI
+        run: |
+          curl -sSf https://install.spacetimedb.com | sh
+          export PATH="$HOME/.local/bin:$PATH"
+          spacetime --version
+
+      - name: Restore credentials
+        if: ${{ secrets.SPACETIMEDB_CREDENTIALS != '' }}
+        run: |
+          mkdir -p ~/.spacetimedb
+          echo "${{ secrets.SPACETIMEDB_CREDENTIALS }}" | base64 -d | tar -xzf - -C ~/
+          ls -la ~/.spacetimedb/
+
+      - name: Publish to Maincloud
+        run: |
+          export PATH="$HOME/.local/bin:$PATH"
+          cd spacetimedb
+          spacetime publish -s maincloud juego-multijugador

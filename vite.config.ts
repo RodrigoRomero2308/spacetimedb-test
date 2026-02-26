@@ -5,4 +5,6 @@ export default defineConfig({
   plugins: [react()],
   root: '.',
   publicDir: 'public',
+  // Base path para GitHub Pages (repo: spacetimedb-test)
+  base: '/spacetimedb-test/',
 });
