@@ -34,6 +34,32 @@ Juego multijugador en tiempo real construido con **SpacetimeDB 2.0**. Un jugador
    npm run dev
    ```
 
+## Despliegue en GitHub Pages
+
+El frontend se despliega automáticamente en GitHub Pages al hacer push a `main` o `develop`.
+
+### Configuración inicial (una vez)
+
+1. En el repo: **Settings → Pages**
+2. En "Build and deployment", elegir **GitHub Actions** como fuente
+
+### URL
+
+- Por defecto: `https://rodrigoromero2308.github.io/spacetimedb-test`
+- Dominio custom: configurable en Settings → Pages → Custom domain
+
+### Despliegue manual
+
+```bash
+npm run deploy
+```
+
+### Variables de entorno (Maincloud)
+
+El workflow usa Maincloud por defecto. Para cambiar, añade secrets en **Settings → Secrets and variables → Actions**:
+- `VITE_SPACETIMEDB_URI`
+- `VITE_SPACETIMEDB_DB`
+
 ## Documentación
 
 Ver `SPACETIMEDB_IMPLEMENTACION.md` para:
